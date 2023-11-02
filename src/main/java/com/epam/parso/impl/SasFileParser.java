@@ -43,6 +43,7 @@ import java.util.Map;
 
 import static com.epam.parso.impl.ParserMessageConstants.*;
 import static com.epam.parso.impl.SasFileConstants.*;
+import static com.epam.parso.impl.SasFileConstants.SAS_DAYS_29FEB8000;
 
 /**
  * This is a class that parses sas7bdat files. When parsing a sas7bdat file, to interact with the library,
@@ -912,9 +913,17 @@ public final class SasFileParser {
      */
     private Date bytesToDate(byte[] bytes) {
         double doubleDays = bytesToDouble(bytes);
-        return Double.isNaN(doubleDays) ? null : new Date((long) ((doubleDays - START_DATES_DAYS_DIFFERENCE)
+        double restoredDate = 0.0D;
+        if (doubleDays >= SAS_DAYS_29FEB4000) {
+            restoredDate += 1;
+            if (doubleDays >= SAS_DAYS_29FEB8000){
+                restoredDate += 1;
+            }
+        }
+        return Double.isNaN(doubleDays) ? null : new Date((long) ((doubleDays - START_DATES_DAYS_DIFFERENCE + restoredDate)
                 * SECONDS_IN_MINUTE * MINUTES_IN_HOUR * HOURS_IN_DAY * MILLISECONDS_IN_SECONDS));
     }
+
 
     /**
      * The function to convert an array of bytes into a double number.

@@ -409,6 +409,18 @@ interface SasFileConstants {
     long SAS_SERVER_TYPE_OFFSET = 224L;
 
     /**
+     * First time when a leap day is removed from the SAS calendar.
+     * In first since 1960-01-01
+     */
+    double SAS_DAYS_29FEB4000 = 745154D;
+
+    /**
+     * Second time when a leap day is removed from the SAS calendar.
+     * In seconds since 1960-01-01
+     */
+    double SAS_DAYS_29FEB8000 = 2206123D;
+
+    /**
      * The sas7bdat file stores the name of the server version on which the sas7bdat was created with the length of
      * SAS_SERVER_TYPE_LENGTH bytes and a {@link SasFileConstants#SAS_SERVER_TYPE_OFFSET} bytes offset (with possible
      * addition of {@link SasFileConstants#ALIGN_1_VALUE} and {@link SasFileConstants#ALIGN_2_VALUE}).
